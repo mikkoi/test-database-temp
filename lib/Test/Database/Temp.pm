@@ -183,8 +183,8 @@ sub use_all_available {
         $opts{deinit}   = defined $params{'deinit'} ? $params{'deinit'} : sub { };
 
         my $db;
-        local $EVAL_ERROR = undef;
-        my $ok = try {
+        my $e;
+        try {
             my $create_params = { args => {}, };
             $create_params = $params{'build'}->( $driver ) if( $params{'build'} );
             $db = Database::Temp->new(
@@ -196,9 +196,9 @@ sub use_all_available {
                 args     => $create_params->{args}     // { },
             );
             1;
+        } catch {
+            $e = $_;
         };
-        my $error = $EVAL_ERROR;
-        my $e = $error ? $error : 'Unknown';
         if( ! $db && $drivers_specifically_requested ) {
             croak "Could not create a temp database with requested driver '$driver'. Error: $e";
         } elsif( ! $db ) {
