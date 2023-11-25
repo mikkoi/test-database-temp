@@ -14,8 +14,6 @@ use warnings;
 
 =for stopwords temp database
 
-=over
-
 =cut
 
 
