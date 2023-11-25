@@ -30,12 +30,20 @@ EOF
 ;
 
 sub init_db {
-    my ($dbh, $name) = @_;
+    my ($dbh) = @_;
     $dbh->begin_work();
     foreach my $row (split qr/;\s*/msx, $DDL) {
         $dbh->do( $row );
     }
     $dbh->commit;
+    return;
+}
+
+sub init_db_csv {
+    my ($dbh) = @_;
+    foreach my $row (split qr/;\s*/msx, $DDL) {
+        $dbh->do( $row );
+    }
     return;
 }
 
@@ -64,7 +72,11 @@ Test::Database::Temp->use_all_available(
     },
     init => sub {
         my ($dbh, $name, $info, $driver) = @_;
-        init_db( $dbh, $name);
+        if( $driver eq 'CSV' ) {
+            init_db_csv( $dbh, $name);
+        } else {
+            init_db( $dbh, $name);
+        }
     },
     deinit => sub {
         my ($dbh, $name, $info, $driver) = @_;
@@ -98,6 +110,7 @@ Test::Database::Temp->use_all_available(
         my ($db) = @_;
         my $driver = $db->driver;
         push @tested_drivers, $driver;
+        diag "Test for $driver finished";
     },
 );
 

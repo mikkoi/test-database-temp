@@ -97,6 +97,15 @@ const my $DEFAULT_BASENAME => 'test_database_temp_';
 
 Return a list of available Database::Temp drivers.
 
+If you specify the list of drivers yourself,
+then availabity check will only be limited to those
+and the available ones will be returned.
+If same driver is specified several times,
+it will be returned as many times.
+The ordering of drivers will not changes.
+
+    my @drivers = Test::Database::Temp->available_drivers( drivers => qw( SQLite SQLite Pg CSV ) );
+
 =cut
 
 sub available_drivers {
@@ -191,10 +200,11 @@ sub use_all_available {
             1;
         };
         my $error = $EVAL_ERROR;
+        my $e = $error ? $error : 'Unknown';
         if( ! $db && $drivers_specifically_requested ) {
-            my $e = $error ? $error : 'Unknown';
             croak "Could not create a temp database with requested driver '$driver'. Error: $e";
         } elsif( ! $db ) {
+            Log::Any->get_logger->infof('Could not create Database::Temp for driver \'%s\'. Error: ', $driver, $e);
             next;
         }
         $params{'do'}->( $db );
