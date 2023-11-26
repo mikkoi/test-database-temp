@@ -102,7 +102,7 @@ If same driver is specified several times,
 it will be returned as many times.
 The ordering of drivers will not changes.
 
-    my @drivers = Test::Database::Temp->available_drivers( drivers => qw( SQLite SQLite Pg CSV ) );
+    my @drivers = Test::Database::Temp->available_drivers( drivers => [ qw( SQLite SQLite Pg CSV ) ] );
 
 =cut
 
