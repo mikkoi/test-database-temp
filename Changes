@@ -1,4 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001     2023-11-28 22:14:52+01:00 Europe/Stockholm
           * Initial release
