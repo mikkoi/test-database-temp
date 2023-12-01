@@ -20,7 +20,7 @@ use Const::Fast;
 use Test::Database::Temp;
 use Database::Temp;
 
-const my $DDL => <<~'EOF';
+const my $DDL => <<'EOF';
     CREATE TABLE test_table (
         id INTEGER
         , name VARCHAR(20)
