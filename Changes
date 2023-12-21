@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add Prereqs / TestRequires to dist.ini
             * Change Prereqs config in dist.ini to the more modern form
 
 0.003     2023-12-21 21:33:49+01:00 Europe/Berlin
