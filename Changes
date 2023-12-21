@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add coverage to Prereqs / DevelopSuggests in dist.ini
             * Add Prereqs / TestRequires to dist.ini
             * Change Prereqs config in dist.ini to the more modern form
 
